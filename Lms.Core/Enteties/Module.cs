@@ -8,7 +8,7 @@ namespace Lms.Core.Enteties
 {
     public class Module
     {
-        public int Id;
+        public int Id { get; set; }
         public string Title { get; set; } = String.Empty;   
         public DateTime StartDate { get; set; }
         public int CourseId;
