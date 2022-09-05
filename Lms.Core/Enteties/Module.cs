@@ -11,6 +11,6 @@ namespace Lms.Core.Enteties
         public int Id { get; set; }
         public string Title { get; set; } = String.Empty;   
         public DateTime StartDate { get; set; }
-        public int CourseId;
+        public int CourseId { get; set; }
     }
 }
