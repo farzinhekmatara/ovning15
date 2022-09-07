@@ -1,5 +1,4 @@
-﻿using Lms.Api.Data;
-using Lms.Core.Enteties;
+﻿using Lms.Core.Enteties;
 using Bogus;
 
 namespace Lms.Data.Data
@@ -7,19 +6,25 @@ namespace Lms.Data.Data
 	public class SeedData
 	{
 		private static Faker faker = null!;
-		public static async Task InitAsync(LmsApiContext db)
+		private static LmsApiContext? db;
+		public static async Task InitAsync(LmsApiContext context)
 		{
+			if (context is null) throw new ArgumentNullException(nameof(context));
+			db = context;
+			//if (await db.Course.AnyAsync()) return;
+
 			faker = new Faker("sv");
 			var Courses = GenerateCourses(5);
-			await db.AddRangeAsync(Courses);
+			db.AddRange(Courses);
+			await db.SaveChangesAsync();
 		}
 		private static IEnumerable<Course> GenerateCourses(int NumberOfCourse)
 		{
 			var courses = new List<Course>();
 			for (int i = 0; i < NumberOfCourse; i++)
 			{
-				var startdate = new DateTime();
-				var title = faker.Random.String();
+				var startdate = DateTime.Now.AddDays(faker.Random.Int(-20, 20));// new DateTime();
+				var title = faker.Name.FindName();
 				courses.Add(new Course() { Title = title, StartDate = startdate });
 			}
 			return courses;
