@@ -10,7 +10,7 @@ using Lms.Core.Enteties;
 
 namespace Lms.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Courses")]
     [ApiController]
     public class CoursesController : ControllerBase
     {
